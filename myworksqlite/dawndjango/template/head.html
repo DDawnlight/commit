@@ -1,0 +1,96 @@
+{% load staticfiles %}	
+<html>
+<head>
+<title>图书管理</title>
+<style type="text/css">
+.titl {
+	height: 80px;
+	width: auto;
+	padding-top: 21px;
+}
+.intro {
+	margin-top: 5px;
+	height: auto;
+	float: left;
+	padding-left: 50px;
+}
+.sear {
+	margin-top: 5px;
+	padding-left: 1000px;
+	height: 60px;
+	padding-top: 10px;
+}
+.lis {
+	position: absolute;	
+	margin-top: 10px;
+	margin-left: 400px;
+	height: auto;
+}
+</style>
+</head>
+<body background="{% static "12345.jpg" %}">
+<div align="center" class="titl" >
+<p>
+<font  face="楷体" size="+5"> 图书管理</font></p>
+</div>
+<div class="sear">
+<form name="form1" method="post" action="/search/">
+  <input name="search" type="text" value="请输入作者名称" size="20" onClick="value=''">
+  <input type="submit"  value="搜索">
+  <a href="/addauthor/"><input type="button"  value="添加作者"></a>
+  <a href="/authorlist/"><input type="button"  value="查看所有作者"></a>
+</form>
+</div>
+<div class="intro" >
+<center>                    
+<strong><font face="楷体" size="+2" >网站简介</font></strong>
+</center>
+  &nbsp;&nbsp;
+  这是一个小规模的图书管理的网站，<br/>
+  能简单的实现图书的添加以及搜索，图<br/>
+  书管理的数据库以及各种操作都已经实<br/>
+  现，不足之处请联系作者，下面附上作<br/>
+  者联系方式：<br/>
+  Name：Dawn<br/>
+  TEL：  15754604337<br/>
+  Email：15754604337@163.com<br/>
+  Address：Hit-A02<br/>
+<center>
+ <strong><font face="楷体" size="+2" >注意事项</font></strong>
+</center>
+<p><strong>1.</strong>添加图书需要在添加作者之后；</p>
+<p><strong>2.</strong>通过搜索作者可以浏览作者信
+息以及作<br/>者的书籍信息，还可以给作者添加新的书<br/>籍；</p>
+<p><strong>3.</strong>通过查看所有作者可以浏览作者信息，<br/>
+  还可以给作者添加新的书籍；</p>
+</div>
+<div class="lis">
+<table width="800" border="1">
+  <tr>
+   <th>图书名</th>
+   <th>作者</th>
+   <th>作者ID</th>
+   <th>图书编号</th>
+   <th>出版社</th>
+   <th>出版日期</th>
+   <th>价格</th>
+   <th>其他</th>
+  </tr>
+  <tbody align="center" >
+  {% for book in book_list %}
+  <tr>
+    <td><a href="/more/?id={{book.ISBN}}">{{book.Title}}</td>
+    <td>{{book.Authors.Name}}</td>
+    <td>{{book.Authors.AuthorID}}</td>
+    <td>{{book.ISBN}}</td>
+    <td>{{book.Publisher}}</td>
+    <td>{{book.PublishDate}}</td>
+    <td>{{book.Price}}</td>
+    <td><a href="/delete/?id={{book.ISBN}}"><input type="button"  value="删除"></td>
+  </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
+</body>
+</html>
